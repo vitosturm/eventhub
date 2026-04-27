@@ -5,6 +5,7 @@ import EventDetails from "../pages/EventDetails";
 import CreateEvent from "../pages/CreateEvent";
 import SignIn from "../pages/SignIn";
 import SignUp from "../pages/SignUp";
+import ProtectedRoute from "../components/ProtectedRoute";
 
 export const router = createBrowserRouter([
   {
@@ -13,9 +14,20 @@ export const router = createBrowserRouter([
     children: [
       { path: "/", element: <Home /> },
       { path: "/events/:id", element: <EventDetails /> },
-      { path: "/create", element: <CreateEvent /> },
+
+      {
+        path: "/create",
+        element: (
+          <ProtectedRoute>
+            <CreateEvent />
+          </ProtectedRoute>
+        ),
+      },
+
       { path: "/signin", element: <SignIn /> },
       { path: "/signup", element: <SignUp /> },
+
+      { path: "*", element: <h1>404 - Page not found</h1> },
     ],
   },
 ]);
