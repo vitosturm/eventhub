@@ -32,24 +32,29 @@ export default function Navbar() {
   };
 
   return (
-    <nav className="bg-gray-900 text-white p-4 flex justify-between items-center">
-      <Link to="/" className="font-bold text-lg">
-        EventHub
+    <nav className="bg-gray-900 text-white px-8 py-4 flex justify-between items-center shadow-lg">
+      <Link to="/" className="text-xl font-bold tracking-wide text-white hover:text-purple-400 transition">
+        🎉 EventHub
       </Link>
 
-      <div className="flex gap-4">
-        <Link to="/">Home</Link>
-        <Link to="/create">Create Event</Link>
-        <Link to="/users">Users</Link>
+      <div className="flex gap-6 items-center text-sm font-medium">
+        <Link to="/" className="hover:text-purple-400 transition">Home</Link>
+        <Link to="/create" className="hover:text-purple-400 transition">Create Event</Link>
 
-        {/* ? Show Sign In / Sign Up when logged out, Logout when logged in */}
         {!token ? (
           <>
-            <Link to="/signin">Sign In</Link>
-            <Link to="/signup">Sign Up</Link>
+            <Link to="/signin" className="hover:text-purple-400 transition">Sign In</Link>
+            <Link to="/signup" className="bg-purple-600 hover:bg-purple-700 text-white px-4 py-2 rounded-full transition">
+              Sign Up
+            </Link>
           </>
         ) : (
-          <button onClick={handleLogout}>Logout</button>
+          <button
+            onClick={handleLogout}
+            className="bg-red-600 hover:bg-red-700 text-white px-4 py-2 rounded-full transition"
+          >
+            Logout
+          </button>
         )}
       </div>
     </nav>
