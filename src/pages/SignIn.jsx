@@ -37,36 +37,70 @@ export default function SignIn() {
   };
 
   return (
-    <form onSubmit={handleSubmit} className="max-w-sm mx-auto mt-16 flex flex-col gap-4">
-      <h1 className="text-2xl font-bold">Sign In</h1>
+    <div className="min-h-screen bg-gray-50 flex items-center justify-center px-4">
+      <div className="bg-white rounded-2xl shadow-lg w-full max-w-4xl flex overflow-hidden">
 
-      {/* ! Show error message below the heading when login fails */}
-      {error && <p className="text-red-500 text-sm">{error}</p>}
+        {/* Left side — illustration */}
+        <div className="hidden md:flex w-1/2 bg-purple-50 items-center justify-center p-10">
+          <div className="text-center">
+            <div className="text-8xl mb-4">🎉</div>
+            <h2 className="text-2xl font-bold text-purple-700">EventHub</h2>
+            <p className="text-gray-500 text-sm mt-2">Discover and create amazing events</p>
+          </div>
+        </div>
 
-      <input
-        type="email"
-        placeholder="Email"
-        value={form.email}
-        className="border rounded p-2"
-        onChange={(e) => setForm({ ...form, email: e.target.value })}
-      />
+        {/* Right side — form */}
+        <div className="w-full md:w-1/2 p-10">
+          <h1 className="text-2xl font-bold mb-1">Welcome Back</h1>
+          <p className="text-gray-400 text-sm mb-6">Sign in to your account</p>
 
-      <input
-        type="password"
-        placeholder="Password"
-        value={form.password}
-        className="border rounded p-2"
-        onChange={(e) => setForm({ ...form, password: e.target.value })}
-      />
+          {error && (
+            <p className="bg-red-50 text-red-500 text-sm rounded-lg px-4 py-2 mb-4 text-center">
+              {error}
+            </p>
+          )}
 
-      {/* * Button is disabled while the request is running to prevent double clicks */}
-      <button
-        type="submit"
-        disabled={loading}
-        className="bg-gray-900 text-white rounded p-2 disabled:opacity-50"
-      >
-        {loading ? "Signing in..." : "Login"}
-      </button>
-    </form>
+          <form onSubmit={handleSubmit} className="flex flex-col gap-4">
+            <div>
+              <label className="text-sm font-medium text-gray-600 mb-1 block">Email</label>
+              <input
+                type="email"
+                placeholder="Enter your email"
+                value={form.email}
+                className="border border-gray-200 rounded-xl p-3 w-full text-sm focus:outline-none focus:ring-2 focus:ring-purple-400"
+                onChange={(e) => setForm({ ...form, email: e.target.value })}
+              />
+            </div>
+
+            <div>
+              <label className="text-sm font-medium text-gray-600 mb-1 block">Password</label>
+              <input
+                type="password"
+                placeholder="Enter your password"
+                value={form.password}
+                className="border border-gray-200 rounded-xl p-3 w-full text-sm focus:outline-none focus:ring-2 focus:ring-purple-400"
+                onChange={(e) => setForm({ ...form, password: e.target.value })}
+              />
+            </div>
+
+            <button
+              type="submit"
+              disabled={loading}
+              className="bg-purple-600 hover:bg-purple-700 text-white font-semibold rounded-xl p-3 transition disabled:opacity-50 mt-2"
+            >
+              {loading ? "Signing in..." : "Sign In"}
+            </button>
+          </form>
+
+          <p className="text-center text-sm text-gray-400 mt-6">
+            Don't have an account?{" "}
+            <a href="/signup" className="text-purple-600 font-medium hover:underline">
+              Sign Up
+            </a>
+          </p>
+        </div>
+
+      </div>
+    </div>
   );
 }
