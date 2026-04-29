@@ -1,49 +1,84 @@
-// * Home page — public landing page showing the event list (API integration pending)
-import { useNavigate } from "react-router-dom";
-const mockEvents = [
-  {
-    id: 1,
-    title: "React Workshop",
-    date: "2026-05-10",
-    location: "Berlin",
-    description: "A hands-on workshop covering React hooks and best practices.",
-  },
-  {
-    id: 2,
-    title: "Gaming Day",
-    date: "2026-08-26",
-    location: "Köln",
-    description: "One of the largest gaming exhibitions in the world.",
-  },
-  {
-    id: 3,
-    title: "Tech Meetup",
-    date: "2026-05-20",
-    location: "Rotterdam",
-    description: "Monthly meetup for developers to share ideas and projects.",
-  },
-];
+// * Home page — public landing page showing upcoming events and all events
+import { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
+import { getEvents, getUpcomingEvents } from "../api/events";
+import UpcomingEvents from "../components/UpcomingEvents";
+import AllEvents from "../components/AllEvents";
 
 export default function Home() {
-  const navigate = useNavigate();
-  return (
-    <div className="max-w-5xl mx-auto px-4 py-10">
-      <h1 className="text-3xl font-bold mb-8">Upcoming Events</h1>
+  const [upcomingEvents, setUpcomingEvents] = useState([]);
+  const [events, setEvents] = useState([]);
 
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-        {mockEvents.map((event) => (
-          <div
-            key={event.id}
-            className="bg-white rounded-2xl shadow-md p-6 hover:shadow-xl transition cursor-pointer border border-gray-100"
-            onClick={() => navigate(`/events/${event.id}`)}
-          >
-            <p className="text-sm text-purple-500 font-medium mb-1">{event.date}</p>
-            <h2 className="text-xl font-bold mb-1">{event.title}</h2>
-            <p className="text-sm text-gray-400 mb-3">📍 {event.location}</p>
-            <p className="text-gray-600 text-sm">{event.description}</p>
-          </div>
-        ))}
-      </div>
-    </div>
+  const [upcomingLoading, setUpcomingLoading] = useState(true);
+  const [eventsLoading, setEventsLoading] = useState(true);
+
+  const [error, setError] = useState(null);
+
+  const [page, setPage] = useState(1);
+  const [totalPages, setTotalPages] = useState(1);
+
+  useEffect(() => {
+    loadUpcomingEvents();
+  }, []);
+
+  useEffect(() => {
+    loadEvents();
+  }, [page]);
+
+  async function loadUpcomingEvents() {
+    try {
+      setUpcomingLoading(true);
+      setError(null);
+
+      const data = await getUpcomingEvents();
+
+      setUpcomingEvents(data.results || []);
+    } catch (err) {
+      setError(err.message || "Failed to load upcoming events");
+    } finally {
+      setUpcomingLoading(false);
+    }
+  }
+
+  async function loadEvents() {
+    try {
+      setEventsLoading(true);
+      setError(null);
+
+      const data = await getEvents(page);
+
+      setEvents(data.results || []);
+      setTotalPages(data.totalPages || 1);
+    } catch (err) {
+      setError(err.message || "Failed to load events");
+    } finally {
+      setEventsLoading(false);
+    }
+  }
+
+  if (error) return <p>{error}</p>;
+
+  return (
+    <main className="mt-8">
+      <h1 className="text-2xl font-bold mb-6">Home Page</h1>
+
+      {error && <p>{error}</p>}
+
+      <UpcomingEvents events={upcomingEvents} loading={upcomingLoading} />
+
+      <AllEvents
+        events={events}
+        loading={eventsLoading}
+        page={page}
+        totalPages={totalPages}
+        onPageChange={setPage}
+      />
+      <Link
+        to="/create"
+        className="fixed bottom-6 right-6 flex h-14 w-14 items-center justify-center rounded-full bg-gray-900 text-3xl text-white shadow-xl transition hover:scale-105 hover:bg-black"
+      >
+        +
+      </Link>
+    </main>
   );
 }
