@@ -32,14 +32,17 @@ export default function Navbar() {
   };
 
   return (
-    <nav className="bg-gray-900 text-white px-8 py-4 flex justify-between items-center shadow-lg">
-      <Link to="/" className="text-xl font-bold tracking-wide text-white hover:text-purple-400 transition">
-        🎉 EventHub
+    <nav className="bg-gray-900 text-white px-8 py-4 flex justify-between items-center shadow-lg relative z-50">
+      <Link to="/" className="text-base font-bold tracking-wide text-white hover:text-purple-400 transition">
+        <img src="/final_logo_1.png" alt="EventHub" className="h-8 w-8 object-contain inline-block mr-2" />
+        <span className="bg-gradient-to-r from-cyan-400 to-purple-400 bg-clip-text text-transparent">
+          EventHub
+        </span>
       </Link>
 
-      <div className="flex gap-6 items-center text-sm font-medium">
+      <div className="flex gap-3 items-center text-sm font-medium">
         <Link to="/" className="hover:text-purple-400 transition">Home</Link>
-        <Link to="/create" className="hover:text-purple-400 transition">Create Event</Link>
+        <Link to="/create" className="hover:text-purple-400 transition hidden sm:block">Create Event</Link>
 
         {!token ? (
           <>

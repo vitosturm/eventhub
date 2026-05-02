@@ -18,16 +18,21 @@ export default function EventCard({ event }) {
   }
 
   return (
-    <div className="border p-4 rounded shadow">
-      <h3 className="text-lg font-bold mb-2">{event.title}</h3>
-      <p className="text-gray-600 mb-2">{formatDate(event.date)}</p>
-      <p className="text-gray-600 mb-4">{event.location}</p>
-      <button
-        onClick={handleViewDetails}
-        className="bg-blue-500 text-white py-2 px-4 rounded"
-      >
-        View Details
-      </button>
+    <div
+      onClick={handleViewDetails}
+      className="bg-white rounded-2xl shadow-md hover:shadow-xl transition cursor-pointer border border-gray-100 overflow-hidden"
+    >
+      <div className="h-1.5 bg-gradient-to-r from-purple-500 to-cyan-400" />
+      <div className="p-6">
+        <p className="text-sm text-purple-500 font-medium mb-1">
+          {formatDate(event.date)}
+        </p>
+        <h3 className="text-xl font-bold mb-1">{event.title}</h3>
+        <p className="text-sm text-gray-400 mb-3">📍 {event.location}</p>
+        <span className="text-sm text-purple-600 font-medium hover:underline">
+          View Details →
+        </span>
+      </div>
     </div>
   );
 }
