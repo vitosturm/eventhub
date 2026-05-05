@@ -1,17 +1,19 @@
 # EventHub
 
-A React-based web application for managing and browsing events. Built as a team learning project with a focus on real-world architecture, authentication, and REST API integration.
+A React-based web application for discovering, browsing, and creating events. Built as a team learning project with a focus on real-world architecture, authentication, interactive maps, and REST API integration.
 
 ---
 
 ## Tech Stack
 
-- **Frontend:** React 19 (Vite)
+- **Frontend:** React 19 (Vite 8)
 - **Styling:** Tailwind CSS v4
 - **Routing:** React Router v7
+- **Maps:** Leaflet + React Leaflet v5 (event location picker & map view)
 - **Backend:** Node.js / Express (Events API)
 - **Auth:** JWT (JSON Web Tokens) stored in localStorage
 - **Database:** SQLite (managed by the API)
+- **Deployment:** GitHub Pages (via GitHub Actions)
 
 ---
 
@@ -58,26 +60,35 @@ The frontend runs on **http://localhost:5173**.
 
 ```
 src/
-├── api/            # Fetch wrapper and API call functions
-│   ├── api.js      # Central fetch wrapper (attaches token automatically)
-│   ├── auth.js     # register, login, getProfile
-│   └── users.js    # getUsers, updateUser, deleteUser
-├── components/     # Reusable components
-│   ├── Navbar.jsx
-│   └── ProtectedRoute.jsx
+├── api/                   # Fetch wrapper and API call functions
+│   ├── api.js             # Central fetch wrapper (attaches JWT token automatically)
+│   ├── auth.js            # register, login, getProfile
+│   ├── events.js          # getEvents, getUpcomingEvents, createEvent, getEventById
+│   └── users.js           # getUsers, updateUser, deleteUser
+├── components/            # Reusable UI components
+│   ├── AllEvents.jsx      # Paginated list of all events
+│   ├── ErrorMessage.jsx   # Standardised error display
+│   ├── EventCard.jsx      # Clickable card for a single event
+│   ├── EventMap.jsx       # Leaflet map shown on event detail page
+│   ├── Loading.jsx        # Loading spinner / skeleton
+│   ├── LocationPicker.jsx # Interactive Leaflet map for picking an event location
+│   ├── Navbar.jsx         # Top navigation bar
+│   ├── Particles.jsx      # Animated canvas particle background
+│   ├── ProtectedRoute.jsx # Redirects unauthenticated users to /signin
+│   └── UpcomingEvents.jsx # Highlighted section for upcoming events
 ├── layout/
-│   └── Layout.jsx  # Wraps all pages with Navbar + content area
+│   └── Layout.jsx         # Wraps all pages with Navbar + content area
 ├── pages/
-│   ├── Home.jsx
-│   ├── SignIn.jsx
-│   ├── SignUp.jsx
-│   ├── Users.jsx
-│   ├── CreateEvent.jsx
-│   └── EventDetails.jsx
+│   ├── Home.jsx           # Landing page — hero, upcoming events, all events
+│   ├── SignIn.jsx         # Login form
+│   ├── SignUp.jsx         # Registration form
+│   ├── Users.jsx          # List of registered users (edit/delete require auth)
+│   ├── CreateEvent.jsx    # Form with location picker to create a new event
+│   └── EventDetails.jsx   # Single event view with Leaflet map
 ├── router/
-│   └── router.jsx  # All routes, protected routes included
-├── App.jsx         # Application root — place for global providers
-└── main.jsx        # Entry point
+│   └── router.jsx         # All routes, protected routes included
+├── App.jsx                # Application root — place for global providers
+└── main.jsx               # Entry point
 ```
 
 ---
@@ -107,6 +118,15 @@ src/
 
 ---
 
+## Maps
+
+Two Leaflet-powered map components are used:
+
+- **LocationPicker** — used on `/create`. Click anywhere on the map to set the event's latitude/longitude. Defaults to Berlin if no location is set yet.
+- **EventMap** — used on `/events/:id`. Shows a read-only marker for the event's coordinates. Renders a fallback message when no location data is available.
+
+---
+
 ## Environment Variables
 
 Create a `.env` file in the root to override the default API URL:
@@ -116,6 +136,14 @@ VITE_API_URL=http://localhost:3001/api
 ```
 
 If no `.env` file is present, the app defaults to `http://localhost:3001/api`.
+
+---
+
+## Deployment
+
+The app is deployed to **GitHub Pages** automatically on every push to `main` via the workflow in [`.github/workflows/static.yml`](.github/workflows/static.yml).
+
+The built `dist/` folder is served as a static site.
 
 ---
 
