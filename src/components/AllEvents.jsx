@@ -12,7 +12,9 @@ export default function AllEvents({
       <h2 className="mb-4 text-xl font-bold">All Events</h2>
 
       {loading ? (
-        <p>Loading events...</p>
+        <div className="flex justify-center py-10">
+          <div className="w-10 h-10 border-4 border-purple-400 border-t-transparent rounded-full animate-spin"></div>
+        </div>
       ) : events.length > 0 ? (
         <>
           <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-3">

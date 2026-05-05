@@ -176,11 +176,11 @@ export default function EventDetails() {
 
   return (
     <main className="mx-auto max-w-3xl px-4 py-8">
-      <button type="button" onClick={handleBack} className="text-sm underline">
+      <button type="button" onClick={handleBack} className="text-purple-600 hover:underline text-sm mb-6 block">
         ← Back to Home
       </button>
 
-      <section className="mt-6 space-y-6 rounded-2xl border p-6">
+      <section className="mt-6 space-y-6 rounded-2xl bg-white p-8 glow-border">
         <div>
           <h1 className="text-3xl font-bold">{event.title}</h1>
           <p className="mt-3 text-gray-600">{event.description}</p>
@@ -233,7 +233,7 @@ export default function EventDetails() {
             <button
               type="button"
               onClick={openEditModal}
-              className="rounded bg-blue-100 px-3 py-2 text-sm text-blue-700 hover:bg-blue-200"
+              className="rounded-xl bg-purple-100 px-4 py-2 text-sm text-purple-700 hover:bg-purple-200 transition"
             >
               Edit
             </button>
@@ -241,7 +241,7 @@ export default function EventDetails() {
             <button
               type="button"
               onClick={openDeleteModal}
-              className="rounded bg-red-100 px-3 py-2 text-sm text-red-700 hover:bg-red-200"
+              className="rounded-xl bg-red-100 px-4 py-2 text-sm text-red-700 hover:bg-red-200 transition"  
             >
               Delete
             </button>
@@ -257,28 +257,28 @@ export default function EventDetails() {
             <input
               placeholder="Title"
               value={editTitle}
-              className="rounded border p-2 text-sm"
+              className="w-full rounded-xl border border-gray-200 p-3 text-sm focus:outline-none focus:ring-2 focus:ring-purple-400"
               onChange={(e) => setEditTitle(e.target.value)}
             />
 
             <textarea
               placeholder="Description"
               value={editDescription}
-              className="min-h-24 rounded border p-2 text-sm"
+              className="min-h-24 w-full rounded-xl border border-gray-200 p-3 text-sm focus:outline-none focus:ring-2 focus:ring-purple-400 resize-none"
               onChange={(e) => setEditDescription(e.target.value)}
             />
 
             <input
               type="datetime-local"
               value={editDate}
-              className="rounded border p-2 text-sm"
+              className="w-full rounded-xl border border-gray-200 p-3 text-sm focus:outline-none focus:ring-2 focus:ring-purple-400"
               onChange={(e) => setEditDate(e.target.value)}
             />
 
             <input
               placeholder="Location name"
               value={editLocation}
-              className="rounded border p-2 text-sm"
+              className="w-full rounded-xl border border-gray-200 p-3 text-sm focus:outline-none focus:ring-2 focus:ring-purple-400"
               onChange={(e) => setEditLocation(e.target.value)}
             />
 
@@ -300,7 +300,7 @@ export default function EventDetails() {
             <button
               type="submit"
               disabled={editLoading}
-              className="rounded bg-gray-900 p-2 text-sm text-white disabled:opacity-50"
+              className="w-full rounded-xl bg-purple-600 hover:bg-purple-700 p-3 text-white font-semibold transition disabled:opacity-50"
             >
               {editLoading ? "Saving..." : "Save Changes"}
             </button>

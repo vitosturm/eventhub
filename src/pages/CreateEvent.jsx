@@ -58,7 +58,7 @@ export default function CreateEvent() {
 
       <form
         onSubmit={handleSubmit}
-        className="space-y-4 rounded-2xl border p-6"
+        className="space-y-4 rounded-2xl bg-white p-8 glow-border"
       >
         {error && <p className="text-sm text-red-500">{error}</p>}
 
@@ -67,7 +67,7 @@ export default function CreateEvent() {
           <input
             value={title}
             onChange={(e) => setTitle(e.target.value)}
-            className="w-full rounded border p-2"
+            className="w-full rounded-xl border border-gray-200 p-3 text-sm focus:outline-none focus:ring-2 focus:ring-purple-400"
             placeholder="Tech Conference"
           />
         </div>
@@ -77,7 +77,7 @@ export default function CreateEvent() {
           <textarea
             value={description}
             onChange={(e) => setDescription(e.target.value)}
-            className="min-h-28 w-full rounded border p-2"
+            className="min-h-28 w-full rounded-xl border border-gray-200 p-3 text-sm focus:outline-none focus:ring-2 focus:ring-purple-400 resize-none"
             placeholder="A conference about the latest in tech"
           />
         </div>
@@ -88,7 +88,7 @@ export default function CreateEvent() {
             type="datetime-local"
             value={date}
             onChange={(e) => setDate(e.target.value)}
-            className="w-full rounded border p-2"
+            className="w-full rounded-xl border border-gray-200 p-3 text-sm focus:outline-none focus:ring-2 focus:ring-purple-400"
           />
         </div>
 
@@ -97,7 +97,7 @@ export default function CreateEvent() {
           <input
             value={location}
             onChange={(e) => setLocation(e.target.value)}
-            className="w-full rounded border p-2"
+            className="w-full rounded-xl border border-gray-200 p-3 text-sm focus:outline-none focus:ring-2 focus:ring-purple-400"
             placeholder="Convention Center"
           />
         </div>
@@ -117,7 +117,7 @@ export default function CreateEvent() {
         <button
           type="submit"
           disabled={loading}
-          className="w-full rounded bg-gray-900 p-2 text-white disabled:opacity-50"
+          className="w-full rounded-xl bg-purple-600 hover:bg-purple-700 p-3 text-white font-semibold transition disabled:opacity-50"
         >
           {loading ? "Creating..." : "Create Event"}
         </button>

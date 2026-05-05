@@ -43,7 +43,7 @@ export default function SignIn() {
         {/* Left side — illustration */}
         <div className="hidden md:flex w-1/2 bg-purple-50 items-center justify-center p-10">
           <div className="text-center">
-            <div className="text-8xl mb-4">🎉</div>
+            <img src="/final_logo_1.png" alt="EventHub" className="h-24 w-24 object-contain mx-auto mb-4" />
             <h2 className="text-2xl font-bold text-purple-700">EventHub</h2>
             <p className="text-gray-500 text-sm mt-2">Discover and create amazing events</p>
           </div>
